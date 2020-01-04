@@ -5,7 +5,7 @@ import CreatePage from './pages/CreatePage'
 import DetailPage from './pages/DetailPage'
 import AuthPage from './pages/AuthPage'
 
-export const useRoutes = isAuthed => {
+const useRoutes = isAuthed => {
   return isAuthed ? (
     <Switch>
       <Route path="/links" exact>
@@ -17,13 +17,20 @@ export const useRoutes = isAuthed => {
       <Route path="/detail/:id">
         <DetailPage />
       </Route>
-      <Redirect to="/create" />
+      <Route path="/" exact>
+        <Redirect to="/create" />
+      </Route>
     </Switch>
   ) : (
     <Switch>
       <Route path="/" exact>
         <AuthPage />
       </Route>
+      <Route path="*">
+        <Redirect to="/" />
+      </Route>
     </Switch>
   )
 }
+
+export default useRoutes

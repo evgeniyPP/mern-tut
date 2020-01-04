@@ -1,11 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import useHttp from '../hooks/http.hook'
 import useMessage from '../hooks/message.hook'
+import AuthContext from '../context/AuthContext'
 
 export default () => {
+  const auth = useContext(AuthContext)
   const { loading, error, request, clearError } = useHttp()
   const message = useMessage()
   const [form, setForm] = useState({ email: '', password: '' })
+
+  useEffect(() => {
+    if (window.M) {
+      window.M.updateTextFields() // makes inputs active
+    }
+  }, [])
 
   useEffect(() => {
     message(error)
@@ -22,6 +30,14 @@ export default () => {
     try {
       const data = await request('/api/auth/signup', 'POST', { ...form })
       message(data.message)
+      clearForm()
+    } catch (e) {}
+  }
+
+  const handleLogin = async () => {
+    try {
+      const data = await request('/api/auth/login', 'POST', { ...form })
+      auth.login(data.token, data.userId)
       clearForm()
     } catch (e) {}
   }
@@ -59,7 +75,11 @@ export default () => {
             </div>
           </div>
           <div className="card-action">
-            <button className="btn yellow darken-4" disabled={loading}>
+            <button
+              className="btn yellow darken-4"
+              onClick={handleLogin}
+              disabled={loading}
+            >
               Войти
             </button>
             <button
