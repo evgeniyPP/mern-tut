@@ -1,9 +1,13 @@
 import React from 'react'
+import 'materialize-css'
+import { BrowserRouter } from 'react-router-dom'
+import { useRoutes } from './routes'
 
 export default () => {
+  const routes = useRoutes(false)
   return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
+    <BrowserRouter>
+      <div className="container">{routes}</div>
+    </BrowserRouter>
   )
 }
