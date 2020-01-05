@@ -4,6 +4,7 @@ const STORAGE_NAME = 'mern-tut/userData'
 
 const useAuth = () => {
   const [token, setToken] = useState(null)
+  const [ready, setReady] = useState(false)
   const [userId, setUserId] = useState(null)
 
   const login = useCallback((tokenFromBackend, userIdFromBackend) => {
@@ -27,9 +28,11 @@ const useAuth = () => {
     if (data && data.token) {
       login(data.token, data.userId)
     }
+
+    setReady(true)
   }, [login])
 
-  return { token, userId, login, logout }
+  return { token, userId, login, logout, ready }
 }
 
 export default useAuth
