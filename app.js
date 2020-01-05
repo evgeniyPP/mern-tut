@@ -21,6 +21,7 @@ mongoose.connection.once('open', () => {
 
 app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/links', require('./routes/link.routes'))
+app.use('/t', require('./routes/redirect.routes'))
 
 app.listen(PORT, () =>
   console.log(`Server has been started on port ${PORT}...`)
