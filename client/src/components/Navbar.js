@@ -15,10 +15,14 @@ export default () => {
         <span className="brand-logo">CC</span>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li>
-            <NavLink to="/create">Создать</NavLink>
+            <NavLink to="/create" exact>
+              Создать
+            </NavLink>
           </li>
           <li>
-            <NavLink to="links">Мои ссылки</NavLink>
+            <NavLink to="/links" exact>
+              Мои ссылки
+            </NavLink>
           </li>
           <li>
             <NavLink to="/" onClick={handleLogout}>
